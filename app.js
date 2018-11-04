@@ -76,6 +76,9 @@ const imageToText = async (req, res) => {
     });
 };
 
+app.get('/', (req,res) => {
+    res.send('ok');
+});
 app.post('/ocr',imageToText);
 
 app.listen(port, () => {
