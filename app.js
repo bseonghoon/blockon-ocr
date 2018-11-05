@@ -18,7 +18,7 @@ const uploadFileType = (mimeType, checkTypeArray) => {
 };
 
 const app = express();
-const port = 8080;
+const port = 80;
 
 app.use(cors());
 // JSON 바디 파싱
@@ -55,15 +55,15 @@ const imageToText = async (req, res) => {
                 const nameIndex = text.indexOf("성명");
                 const agentName = text.slice(nameIndex + 3, nameIndex + 6);
                 const birthIndex = text.indexOf("생년월일");
-                const birth = text.slice(birthIndex + 5, birthIndex + 14)
-                    .replace("년","-").replace("월","-");
+                const birth = text.slice(birthIndex + 5, birthIndex + 15)
+                    .replace("년","-").replace("월","-").replace(/^[-]|[^0-9-]/gi,"");
 
                 //취득일 추출
                 let acquireDateIndex = text.indexOf("증명합니다.");
                 let acquireDate = text.slice(acquireDateIndex + 6);
                 acquireDateIndex = acquireDate.indexOf("년");
-                acquireDate = acquireDate.slice(acquireDateIndex - 4, acquireDateIndex + 5)
-                    .replace("년","-").replace("월","-").replace("일","");
+                acquireDate = acquireDate.slice(acquireDateIndex - 4, acquireDateIndex + 7)
+                    .replace("년","-").replace("월","-").replace(/^[-]|[^0-9-]/gi,"");
 
                 res.json({
                     agentNumber,
