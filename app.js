@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const vision = require('@google-cloud/vision');
 const multer = require('multer');
+const cors = require('cors');
 
 require('dotenv').config();
 
@@ -17,8 +18,9 @@ const uploadFileType = (mimeType, checkTypeArray) => {
 };
 
 const app = express();
-const port = 8000;
+const port = 8080;
 
+app.use(cors());
 // JSON 바디 파싱
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
